@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-
+import { useNavigate } from "react-router-dom";
 function Portal() {
   const [data, setData] = useState("");
   const [val, setVal] = useState("Upload image to predict");
@@ -12,6 +12,12 @@ function Portal() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const history = useNavigate(); 
+
+  // Function to handle navigation back to detection page
+  const handleBackToDetection = () => {
+    history('/attendance'); // Navigate to detection page
+  };
 
   useEffect(() => {
     fetch("http://localhost:3001")
@@ -127,6 +133,9 @@ function Portal() {
           {snackbarMessage}
         </Alert>
       </Snackbar>
+      <div>
+      <button onClick={handleBackToDetection}>Attendance Log</button> {/* Button to navigate back to detection page */}
+    </div>
     </>
   );
 }
